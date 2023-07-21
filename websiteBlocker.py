@@ -11,7 +11,9 @@ startTime = 8
 endTime = 16
 
 while True:
-    # check 
+    # check if between working hours
     if dt(dt.now().year, dt.now().month, dt.now().day, startTime) < dt.now() < dt(dt.now().year, dt.now().month, dt.now().day, endTime):
         print("Working hours")
+    else:
+        print("Outside of working hours")
     time.sleep(5)
