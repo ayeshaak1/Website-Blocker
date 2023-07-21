@@ -9,7 +9,7 @@ redirect="127.0.0.1"
 websiteList=["www.agar.io", "agar.io", "www.instagram.com", "instagram.com"]
 
 startTime = 8
-endTime = 18
+endTime = 16
 
 while True:
     # check if between working hours
@@ -24,9 +24,23 @@ while True:
             for website in websiteList:
                 if website in content:
                     pass
-                # if its not, add website
+                # add website
                 else:
                     file.write(redirect + " " + website + "\n")
     else:
         print("Outside of working hours")
+        with open(hostsTemp, 'r+') as file:
+            # store file as list
+            content = file.readlines()
+
+            # cursor at the beginning
+            file.seek(0)
+
+            for line in content:
+                # rewrite the line if website isn't in the line
+                if not any(website in line for website in websiteList):
+                    file.write(line)
+            
+            # delete everything after one repetition
+            file.truncate()
     time.sleep(5)
